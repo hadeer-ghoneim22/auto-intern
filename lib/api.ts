@@ -58,7 +58,7 @@ interface Application {
 }
 
 export const auth = {
-  signup: async (email: string, password: string): Promise<AuthResponse> => {
+  signup: async (email: string, password: string ): Promise<AuthResponse> => {
     const response = await fetch(`${API_BASE_URL}/auth/signup`, {
       method: "POST",
       headers: {
@@ -68,7 +68,7 @@ export const auth = {
     })
     if (!response.ok) {
       const errorData = await response.json()
-      throw new Error(errorData.message || "Signup failed")
+      throw new Error(errorData.error || errorData.message || "Signup failed")
     }
     return response.json()
   },
@@ -83,7 +83,7 @@ export const auth = {
     })
     if (!response.ok) {
       const errorData = await response.json()
-      throw new Error(errorData.message || "Login failed")
+      throw new Error(errorData.error || errorData.message || "Login failed")
     }
     return response.json()
   },
