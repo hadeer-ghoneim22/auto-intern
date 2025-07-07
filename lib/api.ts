@@ -29,7 +29,8 @@ export const tokenManager = {
   },
 }
 
-const API_BASE_URL = "https://kkh7ikcgxvy9.manus.space/api"
+const API_BASE_URL = "https://autointern-backend-webservice.onrender.com/api"
+
 
 interface AuthResponse {
   user_id: number
