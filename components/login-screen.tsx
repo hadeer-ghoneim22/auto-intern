@@ -21,7 +21,6 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-
   const handleGoogleLogin = async () => {
     setIsLoading(true)
     try {
@@ -30,7 +29,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
         throw new Error("Google Sign-In is not available. Please use email login instead.")
       }
 
-      // For demo purposes, we'll simulate a successful Google login
+      // For demo purposes, we\'ll simulate a successful Google login
       // In a real app, you would use the Google Sign-In SDK
       const mockGoogleResponse = {
         user_id: 1,
@@ -108,8 +107,12 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
 
         <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
           <CardHeader className="text-center pb-6">
-            <CardTitle className="text-2xl font-bold text-gray-900 font-arabic-english">Login</CardTitle>
-            <p className="text-gray-600 font-arabic-english">Welcome back! Please sign in to continue</p>
+            <CardTitle className="text-2xl font-bold text-gray-900 font-arabic-english">
+              {isSignUp ? "Sign Up" : "Login"}
+            </CardTitle>
+            <p className="text-gray-600 font-arabic-english">
+              {isSignUp ? "Create your account to get started" : "Welcome back! Please sign in to continue"}
+            </p>
           </CardHeader>
           <CardContent className="space-y-6">
             {!showEmailLogin ? (
@@ -166,7 +169,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                 </Button>
               </>
             ) : (
-              <form onSubmit={handleEmailLogin} className="space-y-5">
+              <form onSubmit={isSignUp ? handleSignup : handleEmailLogin} className="space-y-5">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 font-arabic-english">Email Address</label>
                   <div className="relative">
@@ -216,10 +219,10 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                   {isLoading ? (
                     <>
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                      <span className="font-arabic-english">Signing in...</span>
+                      <span className="font-arabic-english">{isSignUp ? "Creating account..." : "Signing in..."}</span>
                     </>
                   ) : (
-                    <span className="font-arabic-english">Sign In Securely</span>
+                    <span className="font-arabic-english">{isSignUp ? "Create Account" : "Sign In Securely"}</span>
                   )}
                 </Button>
 
@@ -231,6 +234,17 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
                 >
                   ← Back to Google Sign In
                 </Button>
+
+                <div className="text-center pt-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setIsSignUp(!isSignUp)}
+                    className="text-sm text-blue-600 hover:text-blue-700 font-arabic-english"
+                  >
+                    {isSignUp ? "Already have an account? Sign In" : "Don\'t have an account? Sign Up"}
+                  </Button>
+                </div>
               </form>
             )}
 
